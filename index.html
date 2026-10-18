@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Latih Tubi Sains Tingkatan 3</title>
+<meta name="description" content="Latih tubi Sains Tingkatan 3 KSSM mengikut bab dan subtopik, dengan semakan jawapan serta-merta.">
+<meta name="theme-color" content="#0f766e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f7f6; --card:#ffffff; --ink:#13201d; --muted:#5b6b67; --line:#dfe7e4;
+  --brand:#0f766e; --brand-2:#14b8a6; --brand-soft:#e6f5f3;
+  --ok:#15803d; --ok-soft:#e8f6ec; --bad:#b91c1c; --bad-soft:#fdecec; --warn:#b45309;
+  --shadow:0 1px 2px rgba(16,40,35,.06),0 4px 16px rgba(16,40,35,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#0d1514;--card:#15201e;--ink:#e6efed;--muted:#97a8a4;--line:#26332f;
+    --brand:#2dd4bf;--brand-2:#5eead4;--brand-soft:#123331;
+    --ok:#4ade80;--ok-soft:#12291a;--bad:#f87171;--bad-soft:#2d1515;--warn:#fbbf24;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);}
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 48px}
+header.top{background:linear-gradient(135deg,#0f766e,#0e7490);color:#fff;padding:28px 0 64px}
+header.top .wrap{padding-bottom:0}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+h1{font-size:clamp(24px,5vw,32px);line-height:1.2;margin:6px 0 8px;font-weight:800}
+.sub{opacity:.9;margin:0;font-size:15px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:-44px}
+.stat{background:var(--card);border-radius:14px;padding:14px;box-shadow:var(--shadow);text-align:center}
+.stat b{display:block;font-size:22px;font-weight:800;color:var(--brand)}
+.stat span{font-size:12px;color:var(--muted)}
+.bab{background:var(--card);border-radius:16px;box-shadow:var(--shadow);margin-top:14px;overflow:hidden;border:1px solid var(--line)}
+.bab-h{display:flex;align-items:center;gap:12px;width:100%;padding:16px;background:none;border:0;text-align:left}
+.num{flex:none;width:40px;height:40px;border-radius:12px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-weight:800}
+.bab-h .t{flex:1;min-width:0}
+.bab-h .t b{display:block;font-weight:700}
+.bab-h .t small{color:var(--muted)}
+.chev{transition:transform .2s;color:var(--muted)}
+.bab.open .chev{transform:rotate(180deg)}
+.bab-b{display:none;border-top:1px solid var(--line)}
+.bab.open .bab-b{display:block}
+.st{display:flex;align-items:center;gap:10px;width:100%;padding:13px 16px;background:none;border:0;border-bottom:1px solid var(--line);text-align:left}
+.st:hover{background:var(--brand-soft)}
+.st .name{flex:1;font-size:15px}
+.badge{flex:none;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--line);color:var(--muted)}
+.badge.full{background:var(--ok-soft);color:var(--ok)}
+.badge.part{background:#fff4e0;color:var(--warn)}
+@media (prefers-color-scheme: dark){.badge.part{background:#2e2410}}
+.bab-quiz{display:flex;justify-content:flex-end;padding:12px 16px}
+.btn{border:0;border-radius:12px;padding:12px 18px;font-weight:700;background:var(--brand);color:#fff}
+.btn:hover{filter:brightness(1.07)}
+.btn.ghost{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
+.btn.sm{padding:9px 14px;font-size:14px}
+.btn:disabled{opacity:.4;cursor:default}
+/* Quiz */
+.qtop{display:flex;align-items:center;gap:10px;padding:16px 0}
+.back{background:var(--card);border:1px solid var(--line);border-radius:10px;width:40px;height:40px;display:grid;place-items:center;flex:none}
+.qtop .meta{flex:1;min-width:0}
+.qtop .meta small{color:var(--muted);display:block;font-size:12px}
+.qtop .meta b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand-2));transition:width .3s}
+.qcard{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px 18px;margin-top:14px;border:1px solid var(--line)}
+.qno{font-size:13px;font-weight:700;color:var(--brand);margin-bottom:6px}
+.qtext{font-size:18px;font-weight:600;margin:0 0 18px}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;margin-bottom:10px;transition:border-color .15s,background .15s}
+.opt:hover:not(:disabled){border-color:var(--brand)}
+.opt .l{flex:none;width:28px;height:28px;border-radius:8px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;font-weight:700;font-size:14px}
+.opt .x{padding-top:2px}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.right .l{background:var(--ok);color:#fff;border-color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.wrong .l{background:var(--bad);color:#fff;border-color:var(--bad)}
+.fb{font-weight:700;margin:6px 0 0;min-height:24px}
+.fb.ok{color:var(--ok)} .fb.no{color:var(--bad)}
+.qnav{display:flex;justify-content:flex-end;margin-top:14px}
+.note{background:var(--brand-soft);color:var(--ink);border-radius:12px;padding:10px 14px;font-size:14px;margin-top:12px}
+/* Result */
+.res{text-align:center;padding:28px 18px}
+.ring{width:140px;height:140px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--brand) calc(var(--p)*1%),var(--line) 0)}
+.ring div{width:112px;height:112px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:30px;font-weight:800}
+.res h2{margin:6px 0 4px}
+.res p{color:var(--muted);margin:0 0 18px}
+.acts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.review{margin-top:18px}
+.review h3{font-size:16px;margin:18px 0 8px}
+.rv{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:12px;padding:12px 14px;margin-bottom:10px;font-size:15px}
+.rv .y{color:var(--bad)} .rv .c{color:var(--ok);font-weight:600}
+footer{color:var(--muted);font-size:13px;text-align:center;margin-top:28px}
+.link{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:13px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="data.js"></script>
+<script>
+(function(){
+  const LETTERS = ["A","B","C","D"];
+  const KEY = "sainsT3_scores_v1";
+  const app = document.getElementById("app");
+
+  let scores = {};
+  try { scores = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e) { scores = {}; }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(scores)); } catch(e) {} }
+
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const shuffle = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+  const totalSub = DATA.reduce((n,b)=>n+b.s.length,0);
+  const totalQ = DATA.reduce((n,b)=>n+b.s.reduce((m,s)=>m+s.q.length,0),0);
+  let openBab = null;
+  let quiz = null;
+
+  // ---------- Home ----------
+  function home(){
+    quiz = null;
+    const done = Object.keys(scores).filter(k=>k.startsWith("s:")).length;
+    const vals = Object.keys(scores).filter(k=>k.startsWith("s:")).map(k=>scores[k]);
+    const avg = vals.length ? Math.round(vals.reduce((a,b)=>a+b,0)/vals.length) : 0;
+    let h = `
+    <header class="top"><div class="wrap">
+      <div class="kicker">Sains KSSM</div>
+      <h1>Latih Tubi Sains Tingkatan 3</h1>
+      <p class="sub">${DATA.length} bab · ${totalSub} subtopik · ${totalQ} soalan objektif</p>
+    </div></header>
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat"><b>${done}/${totalSub}</b><span>Subtopik dicuba</span></div>
+        <div class="stat"><b>${avg}%</b><span>Purata skor terbaik</span></div>
+        <div class="stat"><b>${vals.filter(v=>v===100).length}</b><span>Skor penuh</span></div>
+      </div>`;
+    DATA.forEach((b,bi)=>{
+      const parts = b.b.split(": ");
+      const tried = b.s.filter((s,si)=>scores["s:"+bi+":"+si]!==undefined).length;
+      h += `<section class="bab ${openBab===bi?"open":""}">
+        <button class="bab-h" data-bab="${bi}" aria-expanded="${openBab===bi}">
+          <span class="num">${bi+1}</span>
+          <span class="t"><b>${esc(parts[1]||b.b)}</b><small>${b.s.length} subtopik · ${tried} dicuba</small></span>
+          <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="bab-b">`;
+      b.s.forEach((s,si)=>{
+        const sc = scores["s:"+bi+":"+si];
+        const cls = sc===undefined ? "" : (sc===100 ? "full" : "part");
+        h += `<button class="st" data-sub="${bi}:${si}"><span class="name">${esc(s.t)}</span><span class="badge ${cls}">${sc===undefined?"5 soalan":sc+"%"}</span></button>`;
+      });
+      const bs = scores["b:"+bi];
+      h += `<div class="bab-quiz"><button class="btn sm" data-babquiz="${bi}">Kuiz seluruh bab (${b.s.reduce((m,s)=>m+s.q.length,0)} soalan)${bs!==undefined?" · terbaik "+bs+"%":""}</button></div>
+        </div></section>`;
+    });
+    h += `<footer><p>Klik sesuatu subtopik untuk mula menjawab. Jawapan disemak serta-merta.</p>
+      <button class="link" id="reset">Padam rekod skor</button></footer></div>`;
+    app.innerHTML = h;
+    window.scrollTo(0,0);
+  }
+
+  // ---------- Quiz ----------
+  function startQuiz(type, bi, si){
+    let items = [];
+    const bab = DATA[bi];
+    if (type==="sub"){
+      items = bab.s[si].q.map(q=>({q, sub: bab.s[si].t}));
+    } else {
+      bab.s.forEach(s=>s.q.forEach(q=>items.push({q, sub:s.t})));
+      items = shuffle(items);
+    }
+    items = items.map(it=>{
+      const order = shuffle([0,1,2,3]);
+      return { text: it.q[0], sub: it.sub, opts: order.map(i=>it.q[1][i]), ans: order.indexOf(it.q[2]), pick: null };
+    });
+    quiz = { type, bi, si, items, i: 0,
+      title: type==="sub" ? bab.s[si].t : bab.b,
+      key: type==="sub" ? "s:"+bi+":"+si : "b:"+bi };
+    renderQ();
+  }
+
+  function renderQ(){
+    const q = quiz.items[quiz.i], n = quiz.items.length, bab = DATA[quiz.bi];
+    const answered = q.pick !== null;
+    let h = `<div class="wrap">
+      <div class="qtop">
+        <button class="back" id="home" aria-label="Kembali"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <div class="meta"><small>${esc(bab.b)}</small><b>${esc(quiz.title)}</b></div>
+      </div>
+      <div class="bar"><i style="width:${(quiz.i+(answered?1:0))/n*100}%"></i></div>`;
+    if (bab.note && quiz.i===0) h += `<div class="note">${esc(bab.note)}</div>`;
+    h += `<div class="qcard">
+        <div class="qno">Soalan ${quiz.i+1} daripada ${n}${quiz.type==="bab"?" · "+esc(q.sub.split(" ")[0]):""}</div>
+        <p class="qtext">${esc(q.text)}</p>`;
+    q.opts.forEach((o,k)=>{
+      let cls = "";
+      if (answered){ if (k===q.ans) cls="right"; else if (k===q.pick) cls="wrong"; }
+      h += `<button class="opt ${cls}" data-opt="${k}" ${answered?"disabled":""}><span class="l">${LETTERS[k]}</span><span class="x">${esc(o)}</span></button>`;
+    });
+    h += `<p class="fb ${answered?(q.pick===q.ans?"ok":"no"):""}">${answered?(q.pick===q.ans?"Betul!":"Kurang tepat. Jawapan betul: "+LETTERS[q.ans]):""}</p>
+        <div class="qnav"><button class="btn" id="next" ${answered?"":"disabled"}>${quiz.i<n-1?"Seterusnya":"Lihat keputusan"}</button></div>
+      </div></div>`;
+    app.innerHTML = h;
+  }
+
+  function result(){
+    const n = quiz.items.length;
+    const right = quiz.items.filter(q=>q.pick===q.ans).length;
+    const pct = Math.round(right/n*100);
+    const prev = scores[quiz.key];
+    if (prev===undefined || pct>prev){ scores[quiz.key]=pct; save(); }
+    const msg = pct===100 ? "Cemerlang! Semua betul." : pct>=80 ? "Bagus! Hampir sempurna." : pct>=50 ? "Boleh tahan. Ulang kaji lagi." : "Jangan putus asa. Cuba sekali lagi.";
+    let nextBtn = "";
+    if (quiz.type==="sub"){
+      const b = DATA[quiz.bi];
+      if (quiz.si < b.s.length-1) nextBtn = `<button class="btn" data-sub="${quiz.bi}:${quiz.si+1}">Subtopik seterusnya</button>`;
+      else if (quiz.bi < DATA.length-1) nextBtn = `<button class="btn" data-sub="${quiz.bi+1}:0">Bab seterusnya</button>`;
+    }
+    let h = `<div class="wrap">
+      <div class="qtop">
+        <button class="back" id="home" aria-label="Kembali"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <div class="meta"><small>Keputusan</small><b>${esc(quiz.title)}</b></div>
+      </div>
+      <div class="qcard res">
+        <div class="ring" style="--p:${pct}"><div>${pct}%</div></div>
+        <h2>${right} / ${n} betul</h2>
+        <p>${msg}${prev!==undefined?" Skor terbaik sebelum ini: "+prev+"%.":""}</p>
+        <div class="acts">
+          <button class="btn ghost" id="retry">Cuba lagi</button>
+          ${nextBtn}
+          <button class="btn ghost" id="home2">Senarai bab</button>
+        </div>
+      </div>`;
+    const wrong = quiz.items.filter(q=>q.pick!==q.ans);
+    if (wrong.length){
+      h += `<div class="review"><h3>Semak semula soalan yang salah</h3>`;
+      wrong.forEach(q=>{
+        h += `<div class="rv"><div>${esc(q.text)}</div>
+          <div class="y">Jawapan anda: ${LETTERS[q.pick]}. ${esc(q.opts[q.pick])}</div>
+          <div class="c">Jawapan betul: ${LETTERS[q.ans]}. ${esc(q.opts[q.ans])}</div></div>`;
+      });
+      h += `</div>`;
+    }
+    h += `</div>`;
+    app.innerHTML = h;
+    window.scrollTo(0,0);
+  }
+
+  // ---------- Events ----------
+  app.addEventListener("click", e=>{
+    const t = e.target.closest("button");
+    if (!t) return;
+    if (t.dataset.bab!==undefined){ const bi=+t.dataset.bab; openBab = openBab===bi?null:bi; const y=window.scrollY; home(); window.scrollTo(0,y); return; }
+    if (t.dataset.sub){ const [bi,si]=t.dataset.sub.split(":").map(Number); openBab=bi; startQuiz("sub",bi,si); window.scrollTo(0,0); return; }
+    if (t.dataset.babquiz!==undefined){ const bi=+t.dataset.babquiz; openBab=bi; startQuiz("bab",bi); window.scrollTo(0,0); return; }
+    if (t.dataset.opt!==undefined && quiz){ const q=quiz.items[quiz.i]; if(q.pick===null){ q.pick=+t.dataset.opt; renderQ(); } return; }
+    if (t.id==="next"){ if (quiz.i<quiz.items.length-1){ quiz.i++; renderQ(); window.scrollTo(0,0);} else result(); return; }
+    if (t.id==="retry"){ startQuiz(quiz.type, quiz.bi, quiz.si); window.scrollTo(0,0); return; }
+    if (t.id==="home" || t.id==="home2"){ home(); return; }
+    if (t.id==="reset"){ if (confirm("Padam semua rekod skor?")){ scores={}; save(); home(); } return; }
+  });
+
+  home();
+})();
+</script>
+</body>
+</html>
